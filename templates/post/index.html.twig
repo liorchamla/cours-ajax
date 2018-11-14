@@ -4,7 +4,12 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="my-5">Nos articles</h1>
+        <h1 class="my-3">Nos articles</h1>
+        {% if not is_granted('ROLE_USER') %}
+            <a href="/login" class="my-2 btn btn-success">Connexion</a>
+        {% else %}
+            <a href="/logout" class="my-2 btn btn-danger">Déconnexion</a>
+        {% endif %}
         <div class="row">
             {% for post in posts %}
                 <div class="col-3 mb-3">

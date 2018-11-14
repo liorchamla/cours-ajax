@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="post")
+     * @Route("/", name="homepage")
      */
     public function index(PostRepository $repo)
     {
