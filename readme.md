@@ -4,7 +4,7 @@ Ce code sert uniquement à la vidéo d'initiation à AJAX avec Symfony !
 # Installation
 ```
 # On clone le dépot les bros !
-git clone 
+git clone https://github.com/liorchamla/cours-ajax.git
 
 # On se déplace dans le dossier
 cd cours-ajax
