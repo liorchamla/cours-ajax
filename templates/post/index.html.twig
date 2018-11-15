@@ -49,10 +49,16 @@
             const icone = this.querySelector('i');
             const count = this.querySelector('span.js-likes');
 
-            const result = await axios.post(url);
-            const data = result.data;
-            icone.className = icone.className === LIKE_ICON ? UNLIKE_ICON : LIKE_ICON;
-            count.textContent = data.likes;
+            try {
+                const result = await axios.post(url);
+                const data = result.data;
+                icone.className = icone.className === LIKE_ICON ? UNLIKE_ICON : LIKE_ICON;
+                count.textContent = data.likes;
+            } catch (error) {
+                if (error.response.status === 403) {
+                    window.location = '/login'
+                }
+            }
         }
     </script>
 {% endblock %}
