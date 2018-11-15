@@ -17,8 +17,9 @@
                         <h3>{{post.title}}</h3>
                         <p>{{post.introduction}}</p>
                         <a href="#" class="btn btn-primary">Lire la suite</a>
-                        <a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-link">
-                            {{post.likes | length }}&nbsp;
+                        <a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-link js-like">
+
+                            <span class="js-likes">{{post.likes | length }}</span>&nbsp;
                             {% if app.user and post.likedByUser(app.user) %}
                                 <i class="fas fa-thumbs-up"></i>
                             {% else %}
@@ -30,4 +31,28 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        const LIKE_ICON = 'far fa-thumbs-up';
+        const UNLIKE_ICON = 'fas fa-thumbs-up';
+
+        Array.from(document.querySelectorAll('a.js-like')).forEach(function (link) {
+            link.addEventListener('click', onClickLink);
+        });
+
+        async function onClickLink(event) {
+            event.preventDefault();
+            const url = this.href;
+            const icone = this.querySelector('i');
+            const count = this.querySelector('span.js-likes');
+
+            const result = await axios.post(url);
+            const data = result.data;
+            icone.className = icone.className === LIKE_ICON ? UNLIKE_ICON : LIKE_ICON;
+            count.textContent = data.likes;
+        }
+    </script>
 {% endblock %}
